@@ -14,10 +14,11 @@ function App() {
     'welcome',
   )
   const [quantities, setQuantities] = useState<Record<MealId, number>>({
-    'herb-chicken': 3,
-    'miso-noodles': 1,
-    'vegetable-focaccia': 1,
+    'herb-chicken': 0,
+    'miso-noodles': 0,
+    'vegetable-focaccia': 0,
   })
+  const [userName, setUserName] = useState('')
   const [demoTime, setDemoTime] = useState('10:30')
   const [isMenuPublished, setIsMenuPublished] = useState(true)
   const canOrder = isMenuPublished && demoTime !== '' && demoTime < ORDER_CUTOFF
@@ -43,7 +44,14 @@ function App() {
   }
 
   if (currentScreen === 'welcome') {
-    return <WelcomeScreen onContinue={() => setCurrentScreen('staff')} />
+    return (
+      <WelcomeScreen
+        onContinue={(name) => {
+          setUserName(name)
+          setCurrentScreen('staff')
+        }}
+      />
+    )
   }
 
   if (currentScreen === 'cart') {
@@ -54,6 +62,7 @@ function App() {
         onNavigateToAdmin={() => setCurrentScreen('admin')}
         onQuantityChange={updateQuantity}
         quantities={quantities}
+        userName={userName}
       />
     )
   }
@@ -82,6 +91,7 @@ function App() {
       onNavigateToAdmin={() => setCurrentScreen('admin')}
       onNavigateToStaff={() => setCurrentScreen('staff')}
       onOpenCart={() => setCurrentScreen('cart')}
+      userName={userName}
     />
   )
 }

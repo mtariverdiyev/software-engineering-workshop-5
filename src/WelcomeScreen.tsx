@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import './WelcomeScreen.css'
 
 type WelcomeScreenProps = {
-  onContinue: () => void
+  onContinue: (name: string) => void
 }
 
 function TeamIcon() {
@@ -20,7 +20,8 @@ function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    if (name.trim()) onContinue()
+    const trimmedName = name.trim()
+    if (trimmedName) onContinue(trimmedName)
   }
 
   return (

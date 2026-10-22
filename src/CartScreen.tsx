@@ -7,6 +7,7 @@ type CartScreenProps = {
   onBack: () => void
   onNavigateToAdmin: () => void
   onQuantityChange: (mealId: MealId, quantity: number) => void
+  userName: string
 }
 
 function CartScreen({
@@ -15,7 +16,15 @@ function CartScreen({
   onBack,
   onNavigateToAdmin,
   onQuantityChange,
+  userName,
 }: CartScreenProps) {
+  const userInitials = userName
+    .trim()
+    .split(/\s+/)
+    .filter((part) => /\p{L}/u.test(part))
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join('')
   const cartItems = meals.filter((meal) => quantities[meal.id] > 0)
   const mealCount = cartItems.reduce(
     (count, meal) => count + quantities[meal.id],
@@ -35,7 +44,13 @@ function CartScreen({
           </span>
           <span className="cart-brand-name">MealMate</span>
         </div>
-        <span className="cart-profile-initials">MT</span>
+        <span
+          aria-label={`Signed in as ${userName}`}
+          className="cart-profile-initials"
+          title={userName}
+        >
+          {userInitials}
+        </span>
       </header>
 
       <nav className="cart-tabs" aria-label="Staff navigation">

@@ -11,6 +11,7 @@ type StaffScreenProps = {
   onNavigateToAdmin: () => void
   onNavigateToStaff: () => void
   onOpenCart: () => void
+  userName: string
 }
 
 function CheckIcon() {
@@ -40,6 +41,7 @@ function StaffScreen({
   onNavigateToAdmin,
   onNavigateToStaff,
   onOpenCart,
+  userName,
 }: StaffScreenProps) {
   const [selectedMealId, setSelectedMealId] = useState('miso-noodles')
   const [addedToCart, setAddedToCart] = useState(false)
@@ -77,7 +79,7 @@ function StaffScreen({
 
       <section className="staff-content">
         <p className="staff-date">Thursday, October 8</p>
-        <h1>Good morning, Murad</h1>
+        <h1>Good morning, {userName}</h1>
         <p className="staff-subtitle">Choose your lunch for today.</p>
 
         <div
