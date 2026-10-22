@@ -192,13 +192,6 @@
   cursor: pointer;
 }
 
-.cart-status {
-  margin: 4px 0 0;
-  color: #787872;
-  font-size: 8px;
-  text-align: right;
-}
-
 .cart-count svg {
   width: 10px;
   height: 10px;

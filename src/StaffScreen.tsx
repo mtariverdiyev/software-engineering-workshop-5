@@ -1,26 +1,12 @@
 import { useState } from 'react'
+import { formatPrice, meals, type MealId } from './meals'
 import './StaffScreen.css'
 
-const meals = [
-  {
-    id: 'herb-chicken',
-    name: 'Herb chicken bowl',
-    description: 'Roast chicken, greens, lemon rice',
-    price: '$11.50',
-  },
-  {
-    id: 'miso-noodles',
-    name: 'Miso sesame noodles',
-    description: 'Soba, edamame, cucumber, sesame',
-    price: '$10.00',
-  },
-  {
-    id: 'vegetable-focaccia',
-    name: 'Roasted vegetable focaccia',
-    description: 'Peppers, courgette, pesto, mozzarella',
-    price: '$9.50',
-  },
-]
+type StaffScreenProps = {
+  cartCount: number
+  onAddMeal: (mealId: MealId) => void
+  onOpenCart: () => void
+}
 
 function CheckIcon() {
   return (
@@ -40,11 +26,13 @@ function CartIcon() {
   )
 }
 
-function StaffScreen() {
+function StaffScreen({
+  cartCount,
+  onAddMeal,
+  onOpenCart,
+}: StaffScreenProps) {
   const [activeTab, setActiveTab] = useState<'lunch' | 'admin'>('lunch')
   const [selectedMealId, setSelectedMealId] = useState('miso-noodles')
-  const [cartCount, setCartCount] = useState(5)
-  const [cartOpen, setCartOpen] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
   const selectedMeal = meals.find((meal) => meal.id === selectedMealId)
 
@@ -97,10 +85,9 @@ function StaffScreen() {
         <div className="menu-heading">
           <h2>Today’s menu</h2>
           <button
-            aria-expanded={cartOpen}
             aria-label={`Cart, ${cartCount} items`}
             className="cart-count"
-            onClick={() => setCartOpen((isOpen) => !isOpen)}
+            onClick={onOpenCart}
             type="button"
           >
             <CartIcon />
@@ -108,11 +95,6 @@ function StaffScreen() {
             <span className="cart-badge">{cartCount}</span>
           </button>
         </div>
-        {cartOpen && (
-          <p className="cart-status" role="status">
-            {cartCount} {cartCount === 1 ? 'item' : 'items'} in your cart.
-          </p>
-        )}
 
         <div className="meal-list" role="radiogroup" aria-label="Today’s menu">
           {meals.map((meal) => (
@@ -158,7 +140,7 @@ function StaffScreen() {
                 <strong>{meal.name}</strong>
                 <small>{meal.description}</small>
               </span>
-              <strong className="meal-price">{meal.price}</strong>
+              <strong className="meal-price">{formatPrice(meal.price)}</strong>
             </button>
           ))}
         </div>
@@ -168,7 +150,7 @@ function StaffScreen() {
           disabled={!selectedMeal || addedToCart}
           onClick={() => {
             if (selectedMeal) {
-              setCartCount((count) => count + 1)
+              onAddMeal(selectedMeal.id)
               setAddedToCart(true)
             }
           }}
