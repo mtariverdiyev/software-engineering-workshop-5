@@ -2,14 +2,18 @@ import { formatPrice, meals, type MealId } from './meals'
 import './CartScreen.css'
 
 type CartScreenProps = {
+  canAddItems: boolean
   quantities: Record<MealId, number>
   onBack: () => void
+  onNavigateToAdmin: () => void
   onQuantityChange: (mealId: MealId, quantity: number) => void
 }
 
 function CartScreen({
+  canAddItems,
   quantities,
   onBack,
+  onNavigateToAdmin,
   onQuantityChange,
 }: CartScreenProps) {
   const cartItems = meals.filter((meal) => quantities[meal.id] > 0)
@@ -38,7 +42,9 @@ function CartScreen({
         <button className="cart-tab" onClick={onBack} type="button">
           My lunch
         </button>
-        <span className="cart-tab">Admin</span>
+        <button className="cart-tab" onClick={onNavigateToAdmin} type="button">
+          Admin
+        </button>
       </nav>
 
       <section className="cart-content">
@@ -73,6 +79,7 @@ function CartScreen({
                       <button
                         aria-label={`Add one ${meal.name}`}
                         className="quantity-increase"
+                        disabled={!canAddItems}
                         onClick={() => onQuantityChange(meal.id, quantity + 1)}
                         type="button"
                       >

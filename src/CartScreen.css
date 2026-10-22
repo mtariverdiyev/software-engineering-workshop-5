@@ -203,6 +203,11 @@
   cursor: pointer;
 }
 
+.quantity-increase:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .cart-remove {
   padding: 3px 0;
   border: 0;

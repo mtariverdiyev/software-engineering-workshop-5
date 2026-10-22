@@ -4,7 +4,12 @@ import './StaffScreen.css'
 
 type StaffScreenProps = {
   cartCount: number
+  canOrder: boolean
+  isMenuPublished: boolean
+  isPastCutoff: boolean
   onAddMeal: (mealId: MealId) => void
+  onNavigateToAdmin: () => void
+  onNavigateToStaff: () => void
   onOpenCart: () => void
 }
 
@@ -28,10 +33,14 @@ function CartIcon() {
 
 function StaffScreen({
   cartCount,
+  canOrder,
+  isMenuPublished,
+  isPastCutoff,
   onAddMeal,
+  onNavigateToAdmin,
+  onNavigateToStaff,
   onOpenCart,
 }: StaffScreenProps) {
-  const [activeTab, setActiveTab] = useState<'lunch' | 'admin'>('lunch')
   const [selectedMealId, setSelectedMealId] = useState('miso-noodles')
   const [addedToCart, setAddedToCart] = useState(false)
   const selectedMeal = meals.find((meal) => meal.id === selectedMealId)
@@ -50,17 +59,16 @@ function StaffScreen({
 
       <nav className="staff-tabs" aria-label="Staff navigation">
         <button
-          aria-pressed={activeTab === 'lunch'}
-          className={`staff-tab${activeTab === 'lunch' ? ' staff-tab-active' : ''}`}
-          onClick={() => setActiveTab('lunch')}
+          aria-current="page"
+          className="staff-tab staff-tab-active"
+          onClick={onNavigateToStaff}
           type="button"
         >
           My lunch
         </button>
         <button
-          aria-pressed={activeTab === 'admin'}
-          className={`staff-tab${activeTab === 'admin' ? ' staff-tab-active' : ''}`}
-          onClick={() => setActiveTab('admin')}
+          className="staff-tab"
+          onClick={onNavigateToAdmin}
           type="button"
         >
           Admin
@@ -72,13 +80,29 @@ function StaffScreen({
         <h1>Good morning, Murad</h1>
         <p className="staff-subtitle">Choose your lunch for today.</p>
 
-        <div className="cutoff-notice">
+        <div
+          className={`cutoff-notice${canOrder ? '' : ' cutoff-notice-unavailable'}`}
+          role={canOrder ? undefined : 'status'}
+          aria-live={canOrder ? undefined : 'polite'}
+        >
           <span className="notice-check" aria-hidden="true">
-            <CheckIcon />
+            {canOrder ? <CheckIcon /> : '!'}
           </span>
           <span>
-            <strong>Order by 10:30</strong>
-            <small>You can change your choice until the cutoff.</small>
+            <strong>
+              {!isMenuPublished
+                ? 'Menu unavailable'
+                : isPastCutoff
+                  ? 'Ordering closed'
+                  : 'Order by 10:30'}
+            </strong>
+            <small>
+              {!isMenuPublished
+                ? 'Today’s menu has not been published yet.'
+                : isPastCutoff
+                  ? 'The 10:30 AM ordering cutoff has passed.'
+                  : 'You can change your choice until the cutoff.'}
+            </small>
           </span>
         </div>
 
@@ -101,6 +125,7 @@ function StaffScreen({
             <button
               aria-checked={selectedMealId === meal.id}
               className={`meal-card${selectedMealId === meal.id ? ' meal-card-selected' : ''}`}
+              disabled={!canOrder}
               key={meal.name}
               onClick={() => {
                 setSelectedMealId(meal.id)
@@ -147,9 +172,9 @@ function StaffScreen({
 
         <button
           className="order-button"
-          disabled={!selectedMeal || addedToCart}
+          disabled={!canOrder || !selectedMeal || addedToCart}
           onClick={() => {
-            if (selectedMeal) {
+            if (canOrder && selectedMeal) {
               onAddMeal(selectedMeal.id)
               setAddedToCart(true)
             }
