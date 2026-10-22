@@ -114,7 +114,7 @@
   width: 100%;
   height: 36px;
   padding: 0 10px;
-  border: 1px solid #e7e4df;
+  border: 1px solid #08775e;
   border-radius: 9px;
   outline: none;
   background: #fff;
@@ -125,7 +125,11 @@
 
 .welcome-form input:focus {
   border-color: #08775e;
-  box-shadow: 0 0 0 2px rgb(8 119 94 / 12%);
+  box-shadow: 0 0 0 1px rgb(8 119 94 / 12%);
+}
+
+.welcome-form input::placeholder {
+  color: #96958f;
 }
 
 .welcome-form button {
@@ -162,8 +166,30 @@
 
 .welcome-footer {
   position: absolute;
-  top: 80%;
+  right: 14px;
+  bottom: 18px;
   left: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   color: #b5b1aa;
   font-size: 8px;
+}
+
+.welcome-owner {
+  color: #777773;
+  text-align: right;
+}
+
+@media (max-width: 360px) {
+  .welcome-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .welcome-owner {
+    text-align: left;
+  }
 }

@@ -16,7 +16,7 @@ function TeamIcon() {
 }
 
 function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
-  const [name, setName] = useState('TARIVERDIYEV Murad 3036345004')
+  const [name, setName] = useState('')
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -50,6 +50,7 @@ function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
             id="welcome-name"
             name="name"
             onChange={(event) => setName(event.target.value)}
+            placeholder="e.g. Maya Chen"
             type="text"
             value={name}
           />
@@ -60,7 +61,10 @@ function WelcomeScreen({ onContinue }: WelcomeScreenProps) {
         </form>
       </section>
 
-      <footer className="welcome-footer">For your office team only</footer>
+      <footer className="welcome-footer">
+        <span>For your office team only</span>
+        <span className="welcome-owner">TARIVERDIYEV Murad, UID:3036345004</span>
+      </footer>
     </main>
   )
 }
