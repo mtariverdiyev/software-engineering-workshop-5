@@ -1,0 +1,169 @@
+#root:has(.welcome-screen) {
+  width: 100%;
+  max-width: none;
+  min-height: 100svh;
+  border: 0;
+  text-align: left;
+}
+
+.welcome-screen {
+  position: relative;
+  width: 402px;
+  max-width: 100%;
+  min-height: max(874px, 100svh);
+  margin: 0 auto;
+  padding: 16px 14px;
+  box-sizing: border-box;
+  background: #fcfbfa;
+  color: #1b1c19;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+.welcome-screen * {
+  box-sizing: border-box;
+}
+
+.welcome-header {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.welcome-brand-mark {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #08775e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.welcome-brand-name {
+  color: #1f2926;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.welcome-content {
+  margin-top: 154px;
+}
+
+.welcome-icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: #d9f7e9;
+  color: #08775e;
+}
+
+.welcome-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
+.welcome-eyebrow {
+  margin: 0 0 6px;
+  color: #315747;
+  font-size: 9px;
+}
+
+.welcome-content h1 {
+  margin: 0;
+  color: #191a18;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+  line-height: 1.2;
+}
+
+.welcome-description {
+  max-width: 340px;
+  margin: 7px 0 22px;
+  color: #777773;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.welcome-form {
+  display: grid;
+  gap: 8px;
+}
+
+.welcome-form label {
+  color: #292a27;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.welcome-form input {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #e7e4df;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #232420;
+  font: inherit;
+  font-size: 10px;
+}
+
+.welcome-form input:focus {
+  border-color: #08775e;
+  box-shadow: 0 0 0 2px rgb(8 119 94 / 12%);
+}
+
+.welcome-form button {
+  width: 100%;
+  height: 34px;
+  margin-top: 2px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 8px;
+  background: #08775e;
+  color: #fff;
+  font: inherit;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.welcome-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.welcome-form button span:last-child {
+  font-size: 12px;
+}
+
+.welcome-screen button:focus-visible {
+  outline: 2px solid #08775e;
+  outline-offset: 2px;
+}
+
+.welcome-footer {
+  position: absolute;
+  top: 80%;
+  left: 14px;
+  color: #b5b1aa;
+  font-size: 8px;
+}
